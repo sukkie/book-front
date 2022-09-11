@@ -74,3 +74,19 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 - yarn add react-router-dom (npm install react-router-dom@6)
 - yarn add redux react-redux (npm install redux react-redux)
 - yarn add react-bootstrap bootstrap(npm install react-bootstrap bootstrap)
+
+```text
+import 'bootstrap/dist/css/bootstrap.min.css';
+```
+
+### prettierrc
+
+```json
+{
+  "singleQuote": true,
+  "semi": true,
+  "tabWidth": 2,
+  "trailingComma": "all",
+  "printWidth": 80
+}
+```
