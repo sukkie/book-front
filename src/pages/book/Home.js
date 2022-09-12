@@ -1,22 +1,29 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
+import BookItem from '../../components/BookItem';
 
 const Home = () => {
   const [books, setBooks] = useState([]);
 
   const getBook = () => {
-    // 가정 다운로드를 받고(통신)
-    axios('http://localhost:8080/book', {
-      method: 'GET',
-    }).then(
-      (result) => {
-        console.log(result.data);
-        setBooks(result.data);
-      },
-      (error) => {
-        console.error(error);
-      },
-    );
+    // // 가정 다운로드를 받고(통신)
+    // axios('http://localhost:8080/book', {
+    //   method: 'GET',
+    // }).then(
+    //   (result) => {
+    //     console.log(result.data);
+    //     setBooks(result.data);
+    //   },
+    //   (error) => {
+    //     console.error(error);
+    //   },
+    // );
+    fetch('http://localhost:8080/book')
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+        setBooks(res);
+      });
   };
 
   // 실행시점
@@ -31,9 +38,7 @@ const Home = () => {
     <div>
       <h1>책리스트</h1>
       {books.map((book) => (
-        <h3 key={book.id}>
-          {book.id}, {book.title}, {book.author}
-        </h3>
+        <BookItem key={book.id} book={book} />
       ))}
     </div>
   );
