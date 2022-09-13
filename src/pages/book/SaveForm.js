@@ -1,37 +1,69 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 
-const SaveForm = () => {
+const SaveForm = (props) => {
+  const [book, setBook] = useState({
+    title: '',
+    author: '',
+  });
+
+  const changeVale = (e) => {
+    setBook({ ...book, [e.target.name]: e.target.value });
+  };
+
+  const submitBook = (e) => {
+    e.preventDefault();
+    const method = 'POST';
+    const body = JSON.stringify(book);
+    const headers = {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    };
+    fetch('http://localhost:8080/book', { method, headers, body })
+      .then((res) => {
+        if (res.status === 201) {
+          return res.json();
+        } else {
+          return null;
+        }
+      })
+      .then((res) => {
+        console.log(res);
+        if (res !== null) {
+          props.history.push('/');
+        } else {
+          alert('등록실패');
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <div>
       <h1>책등록하기</h1>
-      <Form>
+      <Form onSubmit={submitBook}>
         <Form.Group className="mb-3">
           <Form.Label>Title</Form.Label>
-          <Form.Control type="email" placeholder="Title" />
+          <Form.Control
+            type="text"
+            placeholder="Title"
+            onChange={changeVale}
+            name="title"
+          />
         </Form.Group>
 
         <Form.Group className="mb-3">
           <Form.Label>Author</Form.Label>
-          <Form.Control type="password" placeholder="Author" />
+          <Form.Control
+            type="text"
+            placeholder="Author"
+            onChange={changeVale}
+            name="author"
+          />
         </Form.Group>
-        <Button
-          variant="primary"
-          onClick={() => {
-            const obj = { hello: 'world' };
-            const method = 'POST';
-            const body = JSON.stringify(obj);
-            const headers = {
-              Accept: 'application/json',
-              'Content-Type': 'application/json',
-            };
-            fetch('http://localhost:8080/book', { method, headers, body })
-              .then((res) => res.json())
-              .then((res) => {
-                console.log(res);
-              });
-          }}
-        >
+        <Button variant="primary" type="submit">
           Submit
         </Button>
       </Form>
