@@ -5,7 +5,7 @@ import BookItem from '../../components/BookItem';
 const Home = () => {
   const [books, setBooks] = useState([]);
 
-  const getBook = () => {
+  const getBooks = () => {
     // // 가정 다운로드를 받고(통신)
     // axios('http://localhost:8080/book', {
     //   method: 'GET',
@@ -23,7 +23,8 @@ const Home = () => {
       .then((res) => {
         console.log(res);
         setBooks(res);
-      });
+      })
+      .catch();
   };
 
   // 실행시점
@@ -31,7 +32,7 @@ const Home = () => {
   // 2. 상태 변수가 변경될 때(2번째 인수로 온오프 할 수 있음)
   useEffect(() => {
     console.log('useEffect 실행됨');
-    getBook();
+    getBooks();
   }, []);
 
   return (

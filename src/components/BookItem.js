@@ -3,12 +3,12 @@ import { Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 const BookItem = (props) => {
-  const { id, title, author } = props.book;
+  const { id, title } = props.book;
   return (
     <Card>
       <Card.Body>
         <Card.Title>{title}</Card.Title>
-        <Link to={'/post/1'} className="btn btn-primary">
+        <Link to={'/book/' + id} className="btn btn-primary">
           상세보기
         </Link>
       </Card.Body>
