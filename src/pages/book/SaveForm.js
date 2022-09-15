@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 const SaveForm = (props) => {
+  let navigate = useNavigate();
+
   const [book, setBook] = useState({
     title: '',
     author: '',
@@ -30,7 +33,7 @@ const SaveForm = (props) => {
       .then((res) => {
         console.log(res);
         if (res !== null) {
-          props.history.push('/');
+          navigate('/');
         } else {
           alert('등록실패');
         }
